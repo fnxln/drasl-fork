@@ -6,14 +6,15 @@ import (
 	"crypto/x509"
 	"errors"
 	"fmt"
-	"github.com/BurntSushi/toml"
-	"github.com/dgraph-io/ristretto"
 	"log"
 	"net/url"
 	"os"
 	"path"
 	"path/filepath"
 	"strings"
+
+	"github.com/BurntSushi/toml"
+	"github.com/dgraph-io/ristretto"
 )
 
 type rateLimitConfig struct {
@@ -65,6 +66,7 @@ type Config struct {
 	AllowSkins                 bool
 	ApplicationOwner           string
 	BaseURL                    string
+	DatabaseUrl                string
 	BodyLimit                  bodyLimitConfig
 	DataDirectory              string
 	DefaultAdmins              []string

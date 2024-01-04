@@ -6,13 +6,14 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"net/url"
+	"strings"
+	"time"
+
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/google/uuid"
 	"golang.org/x/crypto/scrypt"
 	"lukechampine.com/blake3"
-	"net/url"
-	"strings"
-	"time"
 )
 
 const (
@@ -260,7 +261,7 @@ type Client struct {
 	ClientToken string `gorm:"primaryKey"`
 	Version     int
 	UserUUID    string
-	User        User
+	User        User `gorm:"foreignKey:UserUUID"`
 }
 
 type TokenClaims struct {
@@ -344,7 +345,7 @@ type User struct {
 	PasswordHash      []byte   `gorm:"not null"`
 	Clients           []Client `gorm:"foreignKey:UserUUID"`
 	ServerID          sql.NullString
-	PlayerName        string `gorm:"unique;not null;type:text collate nocase"`
+	PlayerName        string `gorm:"unique;not null;"`
 	OfflineUUID       string
 	FallbackPlayer    string
 	PreferredLanguage string
